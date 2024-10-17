@@ -1,38 +1,27 @@
-Answer 1: To reason with an LNN graph, we need to follow these steps:
-
-Create an LNN graph using the lnn.Graph() function.
-Add nodes to the graph using the graph.add_node() function.
-Add edges to the graph using the graph.add_edge() function.
-Set the truth values of the nodes using the node.add_data() function.
-Steps in code: 
+<script> 
 import lnn
-
-# Create an LNN graph
+#1
 graph = lnn.Graph()
 
-# Add nodes to the graph
 A = graph.add_node("A")
 B = graph.add_node("B")
 C = graph.add_node("C")
 
-# Add edges to the graph
 graph.add_edge(A, B, lnn.Rule.AND)
 graph.add_edge(B, C, lnn.Rule.OR)
 
-# Set the truth values of the nodes
+
 A.add_data(lnn.Fact.TRUE)
 B.add_data(lnn.Fact.FALSE)
 C.add_data(lnn.Fact.TRUE)
 
-# Perform logical inference
 graph.infer()
 
-# Print the result
 print(graph.nodes)
 
-Answer2: import lnn
 
-# Create an LNN graph
+#2
+
 graph = lnn.Graph()
 
 # Add nodes to the graph
@@ -40,37 +29,28 @@ A = graph.add_node("A")
 B = graph.add_node("B")
 C = graph.add_node("C")
 
-# Add edges to the graph
 graph.add_edge(A, B, lnn.Rule.AND)
 graph.add_edge(B, C, lnn.Rule.OR)
 
-# Set the truth values of the nodes
 A.add_data(lnn.Fact.TRUE)
 B.add_data(lnn.Fact.FALSE)
 C.add_data(lnn.Fact.TRUE)
 
-# Perform logical inference
 graph.infer()
 
-# Print the result
 for node in graph.nodes:
     print(f"{node.name}: {node.get_truth_value()}")
 
-Answer 3: import lnn
-
-# Create an LNN graph
+#3
 graph = lnn.Graph()
 
-# Add nodes to the graph
 B = graph.add_node("B")
 D = graph.add_node("D")
 E = graph.add_node("E")
 
-# Add edges to the graph
 graph.add_edge(B, D, lnn.Rule.OR)
 graph.add_edge(D, E, lnn.Rule.OR)
 
-# Set the truth values of the nodes
 B.add_data(lnn.Fact.TRUE)
 D.add_data(lnn.Fact.FALSE)
 E.add_data(lnn.Fact.TRUE)
@@ -81,8 +61,11 @@ disjunction = graph.query(B, D, E, lnn.Rule.OR)
 # Print the result
 print(disjunction)
 
-Answer4: 
+#4 
 B: TRUE
 D: FALSE
 E: TRUE
+
 Aniqa Afzal, IS800 course credit and IBM Badge 10% request. Dr, Song
+</script>
+
