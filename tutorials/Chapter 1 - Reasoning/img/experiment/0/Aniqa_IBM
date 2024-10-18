@@ -57,8 +57,9 @@ graph.infer()
 
 for node in graph.nodes:
     print(f"{node.name}: {node.get_truth_value()}") 
-
+</script>
 # Running Graphs 
+<script>
 import matplotlib.pyplot as plt
 import networkx as nx
 
