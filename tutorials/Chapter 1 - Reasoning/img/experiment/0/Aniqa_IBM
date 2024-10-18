@@ -39,32 +39,66 @@ C.add_data(lnn.Fact.TRUE)
 graph.infer()
 
 for node in graph.nodes:
-    print(f"{node.name}: {node.get_truth_value()}")
+    print(f"{node.name}: {node.get_truth_value()}") 
+
 
 #3
-graph = lnn.Graph()
+class Node {
+    constructor(name) {
+        this.name = name;
+        this.data = null;
+        this.edges = [];
+    }
 
-B = graph.add_node("B")
-D = graph.add_node("D")
-E = graph.add_node("E")
+    addData(data) {
+        this.data = data;
+    }
 
-graph.add_edge(B, D, lnn.Rule.OR)
-graph.add_edge(D, E, lnn.Rule.OR)
+    addEdge(node) {
+        this.edges.push(node);
+    }
+}
 
-B.add_data(lnn.Fact.TRUE)
-D.add_data(lnn.Fact.FALSE)
-E.add_data(lnn.Fact.TRUE)
+class Graph {
+    constructor() {
+        this.nodes = [];
+    }
 
-# Query the logical disjunction between nodes B, D, and E
-disjunction = graph.query(B, D, E, lnn.Rule.OR)
+    addNode(name) {
+        const node = new Node(name);
+        this.nodes.push(node);
+        return node;
+    }
 
-# Print the result
-print(disjunction)
+    query(...nodes) {
+        // Example logic for logical OR: returns true if any node is TRUE
+        return nodes.some(node => node.data === true);
+    }
+}
 
-#4 
-B: TRUE
-D: FALSE
-E: TRUE
+// Create the graph
+const graph = new Graph();
 
-Aniqa Afzal, IS800 course credit and IBM Badge 10% request. Dr, Son
+const B = graph.addNode("B");
+const D = graph.addNode("D");
+const E = graph.addNode("E");
+
+B.addData(true);
+D.addData(false);
+E.addData(true);
+
+// Add edges (though not used in the query here)
+B.addEdge(D);
+D.addEdge(E);
+
+// Query the logical disjunction between nodes B, D, and E
+const disjunction = graph.query(B, D, E);
+
+// Print the result
+console.log(disjunction);  // This will log true
+
+
+
+
+# From Aniqa Afzal, IS800 10% course credit and IBM NSAI Badge request. Dr.Song course. 
 
