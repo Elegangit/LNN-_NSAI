@@ -1,4 +1,4 @@
-<script> 
+
 import lnn
 #1
 graph = lnn.Graph()
@@ -66,6 +66,5 @@ B: TRUE
 D: FALSE
 E: TRUE
 
-Aniqa Afzal, IS800 course credit and IBM Badge 10% request. Dr, Song
-</script>
+Aniqa Afzal, IS800 course credit and IBM Badge 10% request. Dr, Son
 
