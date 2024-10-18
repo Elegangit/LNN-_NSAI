@@ -6,7 +6,7 @@
     <title>Graph Visualization</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
-        circle {
+        circle { color: black; 
             stroke: black;
             stroke-width: 1.5px;
         }
@@ -35,10 +35,10 @@ C.add_data(lnn.Fact.TRUE)
 graph.infer()
 
 print(graph.nodes)
-
+</script>
 
 #2
-
+<script>
 graph = lnn.Graph()
 
 # Add nodes to the graph
@@ -91,10 +91,10 @@ def plot_graph(G, graph_num):
 # Plotting both graphs
 plot_graph(G1, 1)
 plot_graph(G2, 2)
-
+</script>
 
 #3
-
+<script>
 class Node {
     constructor(name) {
         this.name = name;
@@ -127,9 +127,10 @@ class Graph {
         return nodes.some(node => node.data === true);
     }
 }
-
+</script>
 #4
 // Create the graph
+<script>
 const graph = new Graph();
 
 const B = graph.addNode("B");
@@ -149,9 +150,9 @@ const disjunction = graph.query(B, D, E);
 
 // Print the result
 console.log(disjunction);  // This will log true
-
+</script>
 #Graps of #3 and #4
-
+<script>
     const nodes = [
         { id: "B", value: true },
         { id: "D", value: false },
