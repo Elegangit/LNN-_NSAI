@@ -15,125 +15,127 @@
                                                                 font-weight: bold;
                                                                             margin-bottom: 10px;
                                     }
-                                        </style>
-                                        </head>
-                                        <body>
-                                            <!-- Graph 1 -->
-                                                <div class="graph-title">Graph #1</div>
-                                                    <svg id="graph1" width="600" height="400"></svg>
+                                            svg {
+                                                            margin-bottom: 20px;
+                                            }
+                                                </style>
+                                                </head>
+                                                <body>
+                                                    <!-- Graph 1 -->
+                                                        <div class="graph-title">Graph #1 (A-B-C with AND/OR)</div>
+                                                            <svg id="graph1" width="600" height="400"></svg>
 
-                                                        <!-- Graph 2 -->
-                                                            <div class="graph-title">Graph #2</div>
-                                                                <svg id="graph2" width="600" height="400"></svg>
+                                                                <!-- Graph 2 -->
+                                                                    <div class="graph-title">Graph #2 (A-B-C with AND/OR)</div>
+                                                                        <svg id="graph2" width="600" height="400"></svg>
 
-                                                                    <!-- Graph 3 -->
-                                                                        <div class="graph-title">Graph #3</div>
-                                                                            <svg id="graph3" width="600" height="400"></svg>
+                                                                            <!-- Graph 3 -->
+                                                                                <div class="graph-title">Graph #3 (B-D-E)</div>
+                                                                                    <svg id="graph3" width="600" height="400"></svg>
 
-                                                                                <!-- Graph 4 -->
-                                                                                    <div class="graph-title">Graph #4</div>
-                                                                                        <svg id="graph4" width="600" height="400"></svg>
+                                                                                        <!-- Graph 4 -->
+                                                                                            <div class="graph-title">Graph #4 (B-D-E)</div>
+                                                                                                <svg id="graph4" width="600" height="400"></svg>
 
-                                                                                        <script>
-                                                                                        // Function to render a graph in a specific SVG
-                                                                                        function renderGraph(svgId, nodes, links) {
-                                                                                                const svg = d3.select(svgId);
+                                                                                                <script>
+                                                                                                // Function to render a graph in a specific SVG
+                                                                                                function renderGraph(svgId, nodes, links) {
+                                                                                                        const svg = d3.select(svgId);
 
-                                                                                                    // Create lines for the edges/links
-                                                                                                        const link = svg.append("g")
-                                                                                                              .selectAll("line")
-                                                                                                                    .data(links)
-                                                                                                                          .enter().append("line")
-                                                                                                                                .style("stroke", "black");
+                                                                                                            // Create lines for the edges/links
+                                                                                                                const link = svg.append("g")
+                                                                                                                      .selectAll("line")
+                                                                                                                            .data(links)
+                                                                                                                                  .enter().append("line")
+                                                                                                                                        .style("stroke", "black");
 
-                                                                                                                                    // Create circles for the nodes
-                                                                                                                                        const node = svg.append("g")
-                                                                                                                                              .selectAll("circle")
-                                                                                                                                                    .data(nodes)
-                                                                                                                                                          .enter().append("circle")
-                                                                                                                                                                .attr("r", 10)
-                                                                                                                                                                      .attr("fill", d => d.value ? "green" : "red");
+                                                                                                                                            // Create circles for the nodes
+                                                                                                                                                const node = svg.append("g")
+                                                                                                                                                      .selectAll("circle")
+                                                                                                                                                            .data(nodes)
+                                                                                                                                                                  .enter().append("circle")
+                                                                                                                                                                        .attr("r", 10)
+                                                                                                                                                                              .attr("fill", d => d.value ? "green" : "red");
 
-                                                                                                                                                                          // Add labels to the nodes
-                                                                                                                                                                              const labels = svg.append("g")
-                                                                                                                                                                                    .selectAll("text")
-                                                                                                                                                                                          .data(nodes)
-                                                                                                                                                                                                .enter().append("text")
-                                                                                                                                                                                                      .attr("dy", ".35em")
-                                                                                                                                                                                                            .attr("x", 12)
-                                                                                                                                                                                                                  .text(d => d.id);
+                                                                                                                                                                                  // Add labels to the nodes
+                                                                                                                                                                                      const labels = svg.append("g")
+                                                                                                                                                                                            .selectAll("text")
+                                                                                                                                                                                                  .data(nodes)
+                                                                                                                                                                                                        .enter().append("text")
+                                                                                                                                                                                                              .attr("dy", ".35em")
+                                                                                                                                                                                                                    .attr("x", 12)
+                                                                                                                                                                                                                          .text(d => d.id);
 
-                                                                                                                                                                                                                      // Create force simulation for the graph layout
-                                                                                                                                                                                                                          const simulation = d3.forceSimulation(nodes)
-                                                                                                                                                                                                                                .force("link", d3.forceLink(links).id(d => d.id).distance(100))
-                                                                                                                                                                                                                                      .force("charge", d3.forceManyBody().strength(-400))
-                                                                                                                                                                                                                                            .force("center", d3.forceCenter(300, 200))  // Centering the graph in the middle of the SVG
-                                                                                                                                                                                                                                                  .on("tick", () => {
-                                                                                                                                                                                                                                                            link
-                                                                                                                                                                                                                                                                      .attr("x1", d => d.source.x)
-                                                                                                                                                                                                                                                                                .attr("y1", d => d.source.y)
-                                                                                                                                                                                                                                                                                          .attr("x2", d => d.target.x)
-                                                                                                                                                                                                                                                                                                    .attr("y2", d => d.target.y);
+                                                                                                                                                                                                                              // Create force simulation for the graph layout
+                                                                                                                                                                                                                                  const simulation = d3.forceSimulation(nodes)
+                                                                                                                                                                                                                                        .force("link", d3.forceLink(links).id(d => d.id).distance(100))
+                                                                                                                                                                                                                                              .force("charge", d3.forceManyBody().strength(-400))
+                                                                                                                                                                                                                                                    .force("center", d3.forceCenter(300, 200))  // Centering the graph in the middle of the SVG
+                                                                                                                                                                                                                                                          .on("tick", () => {
+                                                                                                                                                                                                                                                                    link
+                                                                                                                                                                                                                                                                              .attr("x1", d => d.source.x)
+                                                                                                                                                                                                                                                                                        .attr("y1", d => d.source.y)
+                                                                                                                                                                                                                                                                                                  .attr("x2", d => d.target.x)
+                                                                                                                                                                                                                                                                                                            .attr("y2", d => d.target.y);
 
-                                                                                                                                                                                                                                                                                                            node
-                                                                                                                                                                                                                                                                                                                      .attr("cx", d => d.x)
-                                                                                                                                                                                                                                                                                                                                .attr("cy", d => d.y);
+                                                                                                                                                                                                                                                                                                                    node
+                                                                                                                                                                                                                                                                                                                              .attr("cx", d => d.x)
+                                                                                                                                                                                                                                                                                                                                        .attr("cy", d => d.y);
 
-                                                                                                                                                                                                                                                                                                                                        labels
-                                                                                                                                                                                                                                                                                                                                                  .attr("x", d => d.x)
-                                                                                                                                                                                                                                                                                                                                                            .attr("y", d => d.y);
-                                                                                                                                                                                                                                                  });
-                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                labels
+                                                                                                                                                                                                                                                                                                                                                          .attr("x", d => d.x)
+                                                                                                                                                                                                                                                                                                                                                                    .attr("y", d => d.y);
+                                                                                                                                                                                                                                                          });
+                                                                                                }
 
-                                                                                        // Data for Graph #1 (Logical Graph A-B-C with AND/OR)
-                                                                                        const nodes1 = [
-                                                                                                { id: "A", value: true },
-                                                                                                    { id: "B", value: false },
-                                                                                                        { id: "C", value: true }
-                                                                                        ];
+                                                                                                // Data for Graph #1 (Logical Graph A-B-C with AND/OR)
+                                                                                                const nodes1 = [
+                                                                                                        { id: "A", value: true },
+                                                                                                            { id: "B", value: false },
+                                                                                                                { id: "C", value: true }
+                                                                                                ];
 
-                                                                                        const links1 = [
-                                                                                                { source: "A", target: "B", rule: "AND" },
-                                                                                                    { source: "B", target: "C", rule: "OR" }
-                                                                                        ];
+                                                                                                const links1 = [
+                                                                                                        { source: "A", target: "B", rule: "AND" },
+                                                                                                            { source: "B", target: "C", rule: "OR" }
+                                                                                                ];
 
-                                                                                        // Data for Graph #2 (Same Structure as Graph #1)
-                                                                                        const nodes2 = [...nodes1];
-                                                                                        const links2 = [...links1];
+                                                                                                // Data for Graph #2 (Same Structure as Graph #1)
+                                                                                                const nodes2 = [...nodes1];
+                                                                                                const links2 = [...links1];
 
-                                                                                        // Data for Graph #3 (Logical Graph B-D-E)
-                                                                                        const nodes3 = [
-                                                                                                { id: "B", value: true },
-                                                                                                    { id: "D", value: false },
-                                                                                                        { id: "E", value: true }
-                                                                                        ];
+                                                                                                // Data for Graph #3 (Logical Graph B-D-E)
+                                                                                                const nodes3 = [
+                                                                                                        { id: "B", value: true },
+                                                                                                            { id: "D", value: false },
+                                                                                                                { id: "E", value: true }
+                                                                                                ];
 
-                                                                                        const links3 = [
-                                                                                                { source: "B", target: "D" },
-                                                                                                    { source: "D", target: "E" }
-                                                                                        ];
+                                                                                                const links3 = [
+                                                                                                        { source: "B", target: "D" },
+                                                                                                            { source: "D", target: "E" }
+                                                                                                ];
 
-                                                                                        // Data for Graph #4 (Same Structure as Graph #3)
-                                                                                        const nodes4 = [...nodes3];
-                                                                                        const links4 = [...links3];
+                                                                                                // Data for Graph #4 (Same Structure as Graph #3)
+                                                                                                const nodes4 = [...nodes3];
+                                                                                                const links4 = [...links3];
 
-                                                                                        // Render all graphs
-                                                                                        renderGraph("#graph1", nodes1, links1);
-                                                                                        renderGraph("#graph2", nodes2, links2);
-                                                                                        renderGraph("#graph3", nodes3, links3);
-                                                                                        renderGraph("#graph4", nodes4, links4);
+                                                                                                // Render all graphs
+                                                                                                renderGraph("#graph1", nodes1, links1);
+                                                                                                renderGraph("#graph2", nodes2, links2);
+                                                                                                renderGraph("#graph3", nodes3, links3);
+                                                                                                renderGraph("#graph4", nodes4, links4);
 
-                                                                                       
-                                                                                        ]
-                                                                                        ]
-                                                                                        ]
-                                                                                        ]
-                                                                                                                                                                                                                                                  })
-                                                                                        }
+                                                                                                </script>
+
+                                                                                                </body>
+                                                                                                </html>
+                                                                                                ]
+                                                                                                ]
+                                                                                                ]
+                                                                                                ]
+                                                                                                                                                                                                                                                          })
+                                                                                                }
+                                            }
                                     }
                             }
-
- </script>
-
-                                                                                        </body>
-                                                                                        </html>
