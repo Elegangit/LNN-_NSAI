@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LNN BDE Graph Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        circle { 
+            stroke: black;
+            stroke-width: 1.5px;
+        }
+        .result {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .nodes{
+        .true {color:green;}
+        .false { color: red;}}
+       
+        .graph-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<h1> Propositional LNN Experiment 0 BDE Graphs Visuals by Aniqa </h1>
+
+<svg id="bdeGraph" width="600" height="400"></svg>
+<div class="result" id="result"></div>
+<div class="graph-title">BDE Graph</div>
+
+<script>
+  // Function to render the BDE graph in a specific SVG
+        function renderBDEGraph(svgId, nodes, links) {
+            const svg = d3.select(svgId);
+
+            // Create lines for the edges/links
+            const link = svg.append("g")
+                .selectAll("line")
+                .data(links)
+                .enter().append("line")
+                .style("stroke", "black");
+
+            // Create circles for the nodes
+            const node = svg.append("g")
+                .selectAll("circle")
+                .data(nodes)
+                .enter().append("circle")
+                .attr("r", 10)
+                .attr("fill", d => d.value ? "lightgreen" : "lightcoral");
+
+            // Add labels to the nodes
+            const labels = svg.append("g")
+                .selectAll("text")
+                .data(nodes)
+                .enter().append("text")
+                .attr("dy", ".35em")
+                .attr("x", 12)
+                .text(d => d.id);
+
+            // Create force simulation for the graph layout
+            const simulation = d3.forceSimulation(nodes)
+                .force("link", d3.forceLink(links).id(d => d.id).distance(100))
+                .force("charge", d3.forceManyBody().strength(-400))
+                .force("center", d3.forceCenter(300, 200))  // Centering the graph
+                .on("tick", () => {
+                    link
+                        .attr("x1", d => d.source.x)
+                        .attr("y1", d => d.source.y)
+                        .attr("x2", d => d.target.x)
+                        .attr("y2", d => d.target.y);
+
+                    node
+                        .attr("cx", d => d.x)
+                        .attr("cy", d => d.y);
+
+                    labels
+                        .attr("x", d => d.x)
+                        .attr("y", d => d.y);
+                });
+        }
+
+        // Data for BDE Graph (Logical Graph B-D-E)
+        const nodes = [
+            { id: "B", value: true },    // True
+            { id: "D", value: true },    // True (value explicitly set to approx 0.8)
+            { id: "E", value: true }     // True
+        ];
+
+        const links = [
+            { source: "B", target: "D" },
+            { source: "D", target: "E" }
+        ];
+
+        // Render the BDE graph
+        renderBDEGraph("#bdeGraph", nodes, links);
+
+        // Query the logical disjunction of B, D, and E
+        const queryResult = nodes[0].value || nodes[1].value || nodes[2].value; // B OR D OR E
+        console.log('Query Result (B OR D OR E):', queryResult);
+
+        // Output the result
+        const resultText = `Query Result (B ∨ D ∨ E): ${queryResult ? 'TRUE' : 'FALSE'}`;
+        document.body.insertAdjacentHTML('beforeend', `<p>${resultText}</p>`);
+    
+</script>
+<p> Hence, using Lnn graph for BDE, the Query result: (B V D V E) : (0.8, 1.0) TRUE </p>
+</body>
+</html>
